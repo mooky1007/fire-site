@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "posts": {
+      ".read": true,
+      ".write": true
+    },
+    ".read": true,
+    ".write": false
+  }
+}
