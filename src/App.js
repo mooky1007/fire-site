@@ -1,31 +1,16 @@
-import { getDatabase, ref, get, child } from 'firebase/database';
-import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './layouts/Layout';
+import About from './pages/About';
+import Home from './pages/Home';
 
 const App = () => {
-    const db = getDatabase();
-    const [datas, setDatas] = useState([]);
-
-    useEffect(() => {
-        const dbRef = ref(getDatabase());
-        get(child(dbRef, '/posts'))
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    setDatas(Object.values(snapshot.val()));
-                } else {
-                    console.log('No data available');
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
     return (
-        <>
-            <div>Firebase</div>
-            <ul>
-                {datas.map((el, idx) => <li key={idx}>{el}</li>)}
-            </ul>
-        </>
+        <Routes>
+            <Route element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="/about" element={<About />} />
+            </Route>
+        </Routes>
     );
 };
 
